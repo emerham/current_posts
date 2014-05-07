@@ -5,14 +5,14 @@
 */
 
 /**
-* Implements hook_help().
-*
-* Displays help and module information.
-*
-* @param path
-*   Which path of the site we're using to display help
-* @param arg
-*   Array that holds the current path as returned from arg() function
+ * Implements hook_help().
+ *
+ * Displays help and module information.
+ *
+ * @param path
+ *   Which path of the site we're using to display help
+ * @param arg
+ *   Array that holds the current path as returned from arg() function
 */
 
 function current_posts_help($path, $arg){
@@ -22,4 +22,15 @@ function current_posts_help($path, $arg){
 	    break;
     }
 }
-
+/**
+ * Implements hock_block_info().
+*/
+function current_posts_block_info(){
+    $blocks['current_posts'] = array(
+	// The name that will appear in the block list
+	'info' => t('Current posts'),
+	// Default String
+	'cache' => DRUPAL_CACE_PER_ROLE,
+    );
+    return $blocks;
+}
