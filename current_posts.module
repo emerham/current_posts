@@ -30,7 +30,7 @@ function current_posts_block_info(){
 	// The name that will appear in the block list
 	'info' => t('Current posts'),
 	// Default String
-	'cache' => DRUPAL_CACE_PER_ROLE,
+	'cache' => DRUPAL_CACHE_PER_ROLE,
     );
     return $blocks;
 }
