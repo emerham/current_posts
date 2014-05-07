@@ -79,7 +79,7 @@ function current_posts_block_view($delta = ''){
 	    //Iterate over the result set and format as links.
 	    foreach ($result as $node){
 		$items[] = array(
-		    'data' => l($node->title, 'node/', . $node->nid).
+		    'data' => l($node->title, 'node/' . $node->nid),
 		);
 	   }
 	    //No content in the last week.
@@ -92,6 +92,6 @@ function current_posts_block_view($delta = ''){
 		    'items' => $items));
 	    }
 	}
-	return $block
+	return $block;
     }
 }
