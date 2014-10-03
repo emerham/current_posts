@@ -27,10 +27,10 @@ function current_posts_help($path, $arg) {
  */
 function current_posts_block_info() {
     $blocks['current_posts'] = array(
-	//The name that will appear in the block list
-	'info' => t('Current posts'),
-	//Default String
-	'cache' => DRUPAL_CACHE_PER_ROLE,
+        //The name that will appear in the block list
+        'info' => t('Current posts'),
+        //Default String
+        'cache' => DRUPAL_CACHE_PER_ROLE,
     );
     return $blocks;
 }
@@ -54,13 +54,13 @@ function current_posts_contents($display) {
     $max_num = variable_get('current_posts_max', 3);
     //Use Databse API to retrieve current posts.
     $query = db_select('node', 'n')
-	->fields('n', array('nid', 'title', 'created'))
-	->condition('status', 1) //Published
-	->condition('created', array($start_time, $end_time), 'BETWEEN')
-	->orderBy('created', 'DESC'); //Most recent first.
+        ->fields('n', array('nid', 'title', 'created'))
+        ->condition('status', 1) //Published
+        ->condition('created', array($start_time, $end_time), 'BETWEEN')
+        ->orderBy('created', 'DESC'); //Most recent first.
     // Restrict the range if called with 'block' argument.
     if ($display == 'block'){
-	$query->range(0, $max_num);
+        $query->range(0, $max_num);
     }//Now proceeds to execute().
     // If called by page, query proceeds directly to execute()
     return $query->execute();
@@ -83,18 +83,18 @@ function current_posts_block_view($delta = '') {
 	    $items = array();
 	    //Iterate over the result set and format as links.
 	    foreach ($result as $node){
-		$items[] = array(
-		    'data' => l($node->title, 'node/' . $node->nid),
+            $items[] = array(
+                'data' => l($node->title, 'node/' . $node->nid),
 		);
 	   }
 	    //No content in the last week.
 	    if (empty($items)) {
-		$block['content'] = t('No posts available.');
+            $block['content'] = t('No posts available.');
 	    }
 	    else {
 		//Pass data through theme function.
-		$block['content'] = theme('item_list', array(
-		    'items' => $items));
+            $block['content'] = theme('item_list', array(
+                'items' => $items));
 	    }
 	}
 	return $block;
@@ -106,18 +106,18 @@ function current_posts_block_view($delta = '') {
 function current_posts_menu() {
     $items = array();
     $items['admin/config/content/current_posts'] = array(
-	'title' => 'Current Posts',
-	'description' => 'Configuration for Current posts module',
-	'page callback' => 'drupal_get_form',
-	'page arguments' => array('current_posts_form'),
-	'access arguments' => array('access administration pages'),
-	'type' => MENU_NORMAL_ITEM,
+        'title' => 'Current Posts',
+        'description' => 'Configuration for Current posts module',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('current_posts_form'),
+        'access arguments' => array('access administration pages'),
+        'type' => MENU_NORMAL_ITEM,
     );
     $items['current_posts'] = array(
-	'title' => 'Current posts',
-	'page callback' => '_current_posts_page',
-	'access arguments' => array('access current_posts content'),
-	'type' => MENU_NORMAL_ITEM, //Will appear in navigation menu.
+        'title' => 'Current posts',
+        'page callback' => '_current_posts_page',
+        'access arguments' => array('access current_posts content'),
+        'type' => MENU_NORMAL_ITEM, //Will appear in navigation menu.
     );
     return $items;
 }
@@ -128,13 +128,13 @@ function current_posts_menu() {
  */
 function current_posts_form($form, &$form_state) {
     $form['current_posts_max'] = array(
-	'#type' => 'textfield',
-	'#title' => t('Maximum number of posts'),
-	'#default_value' => variable_get('current_posts_max', 3),
-	'#size' => 2,
-	'#maxlength' => 2,
-	'#description' => t('The maximum number of links to display in the block.'),
-	'#required' => TRUE,
+        '#type' => 'textfield',
+        '#title' => t('Maximum number of posts'),
+        '#default_value' => variable_get('current_posts_max', 3),
+        '#size' => 2,
+        '#maxlength' => 2,
+        '#description' => t('The maximum number of links to display in the block.'),
+        '#required' => TRUE,
     );
     return system_settings_form($form);
 }
@@ -149,10 +149,10 @@ function current_posts_form($form, &$form_state) {
 function current_posts_form_validate($form, &$form_state) {
     $max_num = $form_state['values']['current_posts_max'];
     if (!is_numeric($max_num)) {
-	form_set_error('current_posts_max', t('You must enter a number for the maximum number of posts to display.'));
+        form_set_error('current_posts_max', t('You must enter a number for the maximum number of posts to display.'));
     }
     else if ($max_num <= 0) {
-	form_set_error('current_posts_max', t('Maximum number of posts to display must be positive.'));
+        form_set_error('current_posts_max', t('Maximum number of posts to display must be positive.'));
     }
 }
 /**
