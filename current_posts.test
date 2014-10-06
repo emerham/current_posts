@@ -35,3 +35,9 @@
         $this->assertNotEqual('DRUPAL_CACHE_PER_USER', $info['current_posts']['cache'], t('Cache is not set to DRUPAL_CACHE_PER_USER'));
         $this->assertFalse(count($info) > 1, t('No more than one block defined.'));
     }
+    public function testBlock(){
+        $info = module_invoke('current_posts', 'block_info');
+        $data = module_invoke('current_posts', 'block_view');
+        $this->assertIdentical($info['current_posts']['info'], $data['subject'], t('Block list name and subject are identical.'));
+    }
+}
