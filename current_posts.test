@@ -30,3 +30,8 @@
         $this->assertEqual(t('Current posts'), $data['subject'], t('Subject is as expected.'));
         $this->assertNotNull($data['content'], t('Block contains data.'));
     }
+    public function testBlockInfo(){
+        $info = module_invoke('current_posts', 'block_info');
+        $this->assertNotEqual('DRUPAL_CACHE_PER_USER', $info['current_posts']['cache'], t('Cache is not set to DRUPAL_CACHE_PER_USER'));
+        $this->assertFalse(count($info) > 1, t('No more than one block defined.'));
+    }
