@@ -17,9 +17,9 @@
 
 function current_posts_help($path, $arg) {
     switch ($path) {
-	case "admin/help#current_posts":
-	    return '<p>' . t("Displays links to nodes created on this date"). '</p>';
-	    break;
+    case "admin/help#current_posts":
+        return '<p>' . t("Displays links to nodes created on this date"). '</p>';
+        break;
     }
 }
 /**
@@ -74,25 +74,25 @@ function current_posts_contents($display) {
 function current_posts_block_view($delta = '') {
     switch ($delta) {
     case 'current_posts':
-	$block['subject'] = t('Current posts');
-	if (user_access('access content')){
-	    //Retrieve and process data here.
-	    //Use our custom fucntion to retrieve data.
-	    $result = current_posts_contents('block');
-	    //Array to contain items for the block to render.
-	    $items = array();
-	    //Iterate over the result set and format as links.
-	    foreach ($result as $node){
+    $block['subject'] = t('Current posts');
+    if (user_access('access content')){
+        //Retrieve and process data here.
+        //Use our custom fucntion to retrieve data.
+        $result = current_posts_contents('block');
+        //Array to contain items for the block to render.
+        $items = array();
+        //Iterate over the result set and format as links.
+        foreach ($result as $node){
             $items[] = array(
                 'data' => l($node->title, 'node/' . $node->nid),
-		);
-	   }
-	    //No content in the last week.
-	    if (empty($items)) {
+        );
+       }
+        //No content in the last week.
+        if (empty($items)) {
             $block['content'] = t('No posts available.');
-	    }
-	    else {
-		//Pass data through theme function.
+        }
+        else {
+        //Pass data through theme function.
             // Old way fo show the content in the block section
             /*$block['content'] = theme('item_list', array(
                 'items' => $items));
@@ -101,14 +101,14 @@ function current_posts_block_view($delta = '') {
                 '#theme' => 'item_list__current_posts',
                 '#items' => $items,
             );
-    	    $block['content']['more'] = array(
+            $block['content']['more'] = array(
                 '#theme' => 'more_link__current_posts',
                 '#url' => 'current_posts',
                 '#title' => t('See the full list of current posts.'),
             );
         }
-	}
-	return $block;
+    }
+    return $block;
     }
 }
 /**
@@ -172,9 +172,9 @@ function current_posts_form_validate($form, &$form_state) {
  */
 function current_posts_permission() {
     return array(
-	'access current_posts content' => array(
-	    'title' => t('Access content for the Current posts module'),
-	)
+    'access current_posts content' => array(
+        'title' => t('Access content for the Current posts module'),
+    )
     );
 }
 /**
